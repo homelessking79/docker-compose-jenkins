@@ -3,12 +3,12 @@ jenkins:
     local:
       allowsSignup: false
       users:
-       - id: ${JENKINS_ADMIN_ID}
-         password: ${JENKINS_ADMIN_PASSWORD}
+       - id: phongdepzai
+         password: Hoilamgi123
   authorizationStrategy:
     globalMatrix:
       permissions:
-        - "Overall/Administer:admin"
+        - "Overall/Administer:phongdepzai"
         - "Overall/Read:authenticated"
 security:
   queueItemAuthenticator:

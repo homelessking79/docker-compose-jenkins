@@ -1,22 +1,20 @@
 jenkins:
   securityRealm:
-    ldap:
-      configurations:
-        - server: ldap.acme.com
-          rootDN: dc=acme,dc=fr
-          managerDN: "manager"
-          managerPasswordSecret: "${LDAP_PASSWORD}"
-          userSearch: "(&(objectCategory=User)(sAMAccountName={0}))"
-          groupSearchFilter: "(&(cn={0})(objectclass=group))"
-          groupMembershipStrategy:
-            fromGroupSearch:
-              filter: "(&(objectClass=group)(|(cn=GROUP_1)(cn=GROUP_2)))"
+    activeDirectory:
+      domains:
+        - name: "acme"
+          servers: "ad1.acme.com:123,ad2.acme.com:456"
+          site: "site"
+          bindName: "admin"
+          bindPassword: "${BIND_PASSWORD}"
+          tlsConfiguration: TRUST_ALL_CERTIFICATES
+      groupLookupStrategy: "RECURSIVE"
+      removeIrrelevantGroups: true
+      customDomain: true
       cache:
-        size: 100
-        ttl: 10
-      userIdStrategy: CaseInsensitive
-      groupIdStrategy: CaseSensitive
-      
+        size: 500
+        ttl: 600
+      startTls: true  
 unclassified:
   location:
-    url: http://192.168.2.13:8081/
+    url: http://*:8081
